@@ -3,16 +3,17 @@
     "description": "the new tickyphp framework",
     "type": "project",
     "keywords": ["framework", "tickyphp", "ORM"],
-    "homepage": "http://tickyphp.cn/",
+    "homepage": "https://github.com/luomingui/",
     "license": "Apache-2.0",
     "authors": [
         {
             "name": "luomingui",
-            "email": "271391233@qq.com"
+            "email": "minguiluo@163.com"
         }
     ],
     "require": {
         "php": ">=5.5.3",
+        "monolog/monolog": "1.2.*",
         "topticky/framework": "5.5.*"
     },
     "autoload": {
@@ -25,11 +26,5 @@
     },
     "config": {
         "preferred-install": "dist"
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
-        }
     }
 }
