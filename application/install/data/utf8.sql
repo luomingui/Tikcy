@@ -1,0 +1,133 @@
+DROP TABLE IF EXISTS tky_member_login_log;
+CREATE TABLE tky_member_login_log (
+	id INT (10) UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	uid INT (10) UNSIGNED NOT NULL,
+	ipaddr CHAR (15) NOT NULL DEFAULT '0.0.0.0' COMMENT '用户登陆IP',
+	logintime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '用户登陆时间',
+	status TINYINT (1) NOT NULL DEFAULT '1' COMMENT '登陆状态'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '用户登录信息';
+
+DROP TABLE IF EXISTS tky_member;
+CREATE TABLE tky_member (
+	uid MEDIUMINT (8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+	username CHAR (15) NOT NULL DEFAULT '' COMMENT '用户名称',
+	password CHAR (15) NOT NULL DEFAULT '123456' COMMENT '用户密码',
+	email CHAR (90) NOT NULL DEFAULT '' COMMENT '邮箱',
+	avatarstatus TINYINT (1) NOT NULL DEFAULT '0' COMMENT '是否有头像 1=已上传 0=未上传',
+	score MEDIUMINT (8) NOT NULL DEFAULT '0' COMMENT '用户积分',
+	regip VARCHAR (20) DEFAULT NULL DEFAULT '0.0.0.0' COMMENT '注册IP',
+	regdate INT (14) DEFAULT NULL DEFAULT '0' COMMENT '注册时间',
+	lastloginip VARCHAR (20) DEFAULT NULL DEFAULT '0.0.0.0' COMMENT '最后登录IP',
+	lastlogintime INT (14) DEFAULT NULL DEFAULT '0' COMMENT '最后登录时间',
+	adminid TINYINT (1) NOT NULL DEFAULT '0' COMMENT '状态1后台用户 0前台用户',
+	timeoffset CHAR (4) NOT NULL DEFAULT '' COMMENT '时区校正',
+        token VARCHAR (200) DEFAULT NULL DEFAULT '' COMMENT '激活码',
+        token_exptime INT (14) DEFAULT NULL DEFAULT '0' COMMENT '激活码有效期',
+	status TINYINT (1) NOT NULL DEFAULT '1' COMMENT '状态1启用 2禁用',
+	dateline INT (14) DEFAULT NULL DEFAULT '0' COMMENT '添加时间',
+	PRIMARY KEY (uid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '用户主表';
+
+DROP TABLE IF EXISTS tky_member_profile;
+CREATE TABLE tky_member_profile (
+        uid mediumint(8) unsigned NOT NULL COMMENT '用户编号',
+	realname VARCHAR (255) NOT NULL DEFAULT '' COMMENT '实名',
+	gender TINYINT (1) NOT NULL DEFAULT '0'  COMMENT '性别',
+	birthyear SMALLINT (6) DEFAULT NULL DEFAULT '0' COMMENT '出生年',
+	birthmonth TINYINT (6) DEFAULT NULL DEFAULT '0' COMMENT '出生月',
+	birthday TINYINT (6) DEFAULT NULL DEFAULT '0' COMMENT '出生日',
+	constellation VARCHAR (255) NOT NULL DEFAULT '' COMMENT '星座',
+	zodiac VARCHAR (255) NOT NULL DEFAULT '' COMMENT '生肖',
+	idcardtype VARCHAR (255) NOT NULL DEFAULT '' COMMENT '证件类型：身份证 护照 军官证等',
+	idcard VARCHAR (255) NOT NULL DEFAULT '' COMMENT '证件号码',
+	address VARCHAR (255) NOT NULL DEFAULT '' COMMENT '邮寄地址',
+	zipcode VARCHAR (255) NOT NULL DEFAULT '' COMMENT '邮编',
+	nationality VARCHAR (255) NOT NULL DEFAULT '' COMMENT '国籍',
+	birthprovince VARCHAR (255) NOT NULL DEFAULT '' COMMENT '出生省份',
+	birthcity VARCHAR (255) NOT NULL DEFAULT '' COMMENT '出生城市',
+	birthdist VARCHAR (20) NOT NULL DEFAULT '' COMMENT '出生行政区/县',
+	birthcommunity VARCHAR (255) NOT NULL DEFAULT '' COMMENT '出生小区',
+	resideprovince VARCHAR (255) NOT NULL DEFAULT '' COMMENT '居住省份',
+	residecity VARCHAR (255) NOT NULL DEFAULT '' COMMENT '居住城市',
+	residedist VARCHAR (20) NOT NULL DEFAULT '' COMMENT '居住行政区/县',
+	residecommunity VARCHAR (255) NOT NULL DEFAULT '' COMMENT '居住小区',
+	residesuite VARCHAR (255) NOT NULL DEFAULT '' COMMENT '门牌号',
+	graduateschool VARCHAR (255) NOT NULL DEFAULT '' COMMENT '毕业学校',
+	company VARCHAR (255) NOT NULL DEFAULT '' COMMENT '公司',
+	education VARCHAR (255) NOT NULL DEFAULT '' COMMENT '学历',
+	occupation VARCHAR (255) NOT NULL DEFAULT '' COMMENT '职业',
+	position VARCHAR (255) NOT NULL DEFAULT '' COMMENT '职位',
+	revenue VARCHAR (255) NOT NULL DEFAULT '' COMMENT '年收入',
+	affectivestatus VARCHAR (255) NOT NULL DEFAULT '' COMMENT '情感状态',
+	lookingfor VARCHAR (255) NOT NULL DEFAULT '' COMMENT '交友目的',
+	bloodtype VARCHAR (255) NOT NULL DEFAULT '' COMMENT '血型',
+	height VARCHAR (255) NOT NULL DEFAULT '' COMMENT '身高',
+	weight VARCHAR (255) NOT NULL DEFAULT '' COMMENT '体重',
+	alipay VARCHAR (255) NOT NULL DEFAULT '' COMMENT '支付宝帐号',
+	icq VARCHAR (255) NOT NULL DEFAULT '' COMMENT 'ICQ',
+	qq VARCHAR (255) NOT NULL DEFAULT '' COMMENT 'QQ',
+	yahoo VARCHAR (255) NOT NULL DEFAULT '' COMMENT 'YAHOO',
+	msn VARCHAR (255) NOT NULL DEFAULT '' COMMENT 'MSN',
+	taobao VARCHAR (255) NOT NULL DEFAULT '' COMMENT '阿里旺旺',
+	site VARCHAR (255) NOT NULL DEFAULT '' COMMENT '主页',
+	bio text NOT NULL  DEFAULT '' COMMENT '自我介绍',
+	interest text NOT NULL  DEFAULT '' COMMENT '兴趣爱好',
+	PRIMARY KEY (uid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '用户详细资料表';
+
+DROP TABLE IF EXISTS tky_member_stat_field;
+CREATE TABLE tky_member_stat_field (
+  optionid mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '统计项编号',
+  fieldid varchar(255) NOT NULL DEFAULT '' COMMENT '字段标志符',
+  fieldvalue varchar(255) NOT NULL DEFAULT '' COMMENT '字段值',
+  `hash` varchar(255) NOT NULL DEFAULT '' COMMENT '由fieldid和fieldvalue生成的hash',
+  users mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '对应用户数',
+  updatetime int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (optionid),
+  KEY fieldid (fieldid)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '用户资料统计项';
+
+DROP TABLE IF EXISTS tky_auth_role;
+CREATE TABLE tky_auth_role (
+	roleid MEDIUMINT (8) UNSIGNED NOT NULL auto_increment COMMENT '编号',
+	title CHAR (30) NOT NULL DEFAULT '' COMMENT '名称',
+	status TINYINT (1) NOT NULL DEFAULT '1' COMMENT '状态',
+	rules text COMMENT '规则',
+	PRIMARY KEY (roleid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '角色';
+
+DROP TABLE IF EXISTS tky_auth_role_member;
+CREATE TABLE tky_auth_role_member (
+	uid MEDIUMINT (8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户编号',
+	roleid MEDIUMINT (8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '组编号',
+	UNIQUE KEY uid_role_id (uid, roleid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '用户角色';
+
+DROP TABLE IF EXISTS tky_auth_rule;
+CREATE TABLE tky_auth_rule (
+	ruleid MEDIUMINT (8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '编号',
+	module VARCHAR (20) NOT NULL DEFAULT '' COMMENT '规则所属module',
+	type TINYINT (1) NOT NULL DEFAULT '1' COMMENT '类型 1-url;2-主菜单',
+	name CHAR (80) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识',
+	title CHAR (20) NOT NULL DEFAULT '' COMMENT '规则中文描述',
+	regex CHAR (100) NOT NULL DEFAULT '' COMMENT '规则表达式',
+	status TINYINT (1) NOT NULL DEFAULT '1' COMMENT '状态',
+	PRIMARY KEY (ruleid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '规则表';
+
+DROP TABLE IF EXISTS tky_comment;
+CREATE TABLE tky_comment (
+	cid MEDIUMINT (8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '评论编号',
+	upid MEDIUMINT (8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上级编号',
+	uid MEDIUMINT (8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户编号',
+	idtype VARCHAR (32) NOT NULL DEFAULT '' COMMENT '评论对象编号类型',
+	id MEDIUMINT (8) UNSIGNED NOT NULL DEFAULT '0' COMMENT '评论对象编号',
+	message text NOT NULL COMMENT '评论内容',
+	ip VARCHAR (32) NOT NULL DEFAULT '' COMMENT '评论IP',
+        port VARCHAR (32) NOT NULL DEFAULT '' COMMENT '端口',
+	status VARCHAR (32) NOT NULL DEFAULT '' COMMENT '评论状态 -1审核',
+	dateline INT (10) UNSIGNED NOT NULL COMMENT '评论时间戳',
+	PRIMARY KEY (cid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '评论';
+
+

@@ -1,0 +1,46 @@
+*{margin: 0;padding: 0;}
+html,body{ height: 100%; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;}
+body { background: #FFF url(/static/images/home/background.png) repeat-x 0 0;}
+a{text-decoration: none;}
+a:link {color: #333333;text-decoration: none;}
+a:active {color: #333333;text-decoration: none;}
+a:visited {color: #333333;text-decoration: none;}
+a:hover {color: #00abff;text-decoration: none;}
+ul li{list-style-type:none;}
+.cl {zoom: 1;}
+.z {float: left;}
+.y {float: right;}
+img {max-width: 100%;max-height: 100%;}
+/*返回顶部*/
+#gotoTop{
+    display:none;
+    position:fixed;
+    top:75%;
+    left:50%;
+    cursor:pointer;
+    margin-top:-50px;
+    margin-left:520px;
+    width: 64px;
+    height:64px;
+    line-height: 100;
+    overflow: hidden;
+    background: url(/static/images/gTopa.png) no-repeat;
+}
+/*兼容IE css 截取字符串*/
+.cuttitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+    display: block;
+    display: -moz-inline-box;
+}
+.ie_all {
+    *display: inline;
+    zoom: 1;
+}
+.ie8 .cuttitle {
+    text-overflow: clip;
+    display: inline-block;
+    zoom: 1;
+}

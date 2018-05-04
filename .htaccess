@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  # 开启url重写模式 //on为打开,off为关闭
+  RewriteEngine On
+  #网站url伪静态匹配
+  DirectoryIndex index.php index.html index.htm
+
+  # Rewrite 系统规则请勿修改 如果请求的是真实存在的文件或目录，直接访问
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+  #RewriteRule  ^/ticky/(.*)$  /ticky/index.php/$1 [QSA,PT,L]
+</IfModule>

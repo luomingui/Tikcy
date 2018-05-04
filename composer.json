@@ -1,0 +1,35 @@
+{
+    "name": "topticky/ticky",
+    "description": "the new tickyphp framework",
+    "type": "project",
+    "keywords": ["framework", "tickyphp", "ORM"],
+    "homepage": "http://tickyphp.cn/",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "luomingui",
+            "email": "271391233@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.3",
+        "topticky/framework": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "application\\": "application"
+        }
+    },
+    "extra": {
+        "ticky-path": "tickyphp"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
