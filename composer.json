@@ -14,7 +14,7 @@
     "require": {
         "php": ">=5.5.3",
         "monolog/monolog": "1.2.*",
-        "topticky/framework": "5.5.*"
+        "topticky/framework": "1"
     },
     "autoload": {
         "psr-4": {
